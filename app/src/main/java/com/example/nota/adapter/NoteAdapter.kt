@@ -18,6 +18,7 @@ class NoteAdapter internal constructor(
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val noteItemView: TextView = itemView.findViewById(R.id.textView)
+        val dateItemView: TextView = itemView.findViewById(R.id.date)
         val notesubItemView: TextView = itemView.findViewById(R.id.textview)
     }
 
@@ -29,6 +30,7 @@ class NoteAdapter internal constructor(
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val current = notes[position]
         holder.noteItemView.text = current.titulo
+        holder.dateItemView.text = current.date
         holder.notesubItemView.text = current.texto
     }
 

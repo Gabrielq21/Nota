@@ -7,9 +7,13 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddNote : AppCompatActivity() {
-
+    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+    val currentDate = sdf.format(Date())
     private lateinit var editWordView: EditText
     private lateinit var editnumberView: EditText
 
@@ -18,7 +22,6 @@ class AddNote : AppCompatActivity() {
         setContentView(R.layout.activity_add_note)
         editWordView = findViewById(R.id.edit_word)
         editnumberView = findViewById(R.id.edit_number)
-
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
@@ -27,8 +30,10 @@ class AddNote : AppCompatActivity() {
             } else {
                 val word = editWordView.text.toString()
                 val numero = editnumberView.text.toString()
+                val date = currentDate.toString()
                 replyIntent.putExtra(EXTRA_REPLY, word)
                 replyIntent.putExtra(EXTRA1_REPLY, numero)
+                replyIntent.putExtra(EXTRA2_REPLY, date)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -38,5 +43,6 @@ class AddNote : AppCompatActivity() {
     companion object {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
         const val EXTRA1_REPLY = "com.example.android.wordlistsql.REPLY1"
+        const val EXTRA2_REPLY = "com.example.android.wordlistsql.REPLY2"
     }
 }

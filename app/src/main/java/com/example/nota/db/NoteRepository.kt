@@ -7,6 +7,7 @@ import com.example.nota.entities.Note
 
 class NoteRepository(private val noteDao: NoteDao){
     val allNotes: LiveData<List<Note>> = noteDao.getNotes()
+
     suspend fun deleteAll(){
         noteDao.deleteAll()
     }

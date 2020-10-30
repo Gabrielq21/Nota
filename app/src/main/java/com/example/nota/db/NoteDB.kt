@@ -10,7 +10,7 @@ import com.example.nota.entities.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 2, exportSchema = false)
 public abstract class NoteDB : RoomDatabase(){
     abstract fun noteDao(): NoteDao
     private class WordDatabaseCallback(
@@ -23,10 +23,10 @@ public abstract class NoteDB : RoomDatabase(){
                 scope.launch {
                      /*var noteDao = database.noteDao()
                      noteDao.deleteAll()
-                     var name = Note(1,"Gabriel", "aluno")
+                     var name = Note(1,"Gabriel", "aluno","12")
                      noteDao.insert(name)
-                     name= Note(2, "Edgar", "Professor")
-                     noteDao.insert(name)*/
+                     name= Note(2, "Edgar", "Professor","wq")
+                     noteDao.insert(name) */
                 }
             }
         }
