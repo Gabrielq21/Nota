@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nota.R
 import com.example.nota.entities.Note
 
+
 class NoteAdapter internal constructor(
-    context: Context
+        context: Context
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -20,6 +21,7 @@ class NoteAdapter internal constructor(
         val noteItemView: TextView = itemView.findViewById(R.id.textView)
         val dateItemView: TextView = itemView.findViewById(R.id.date)
         val notesubItemView: TextView = itemView.findViewById(R.id.textview)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
