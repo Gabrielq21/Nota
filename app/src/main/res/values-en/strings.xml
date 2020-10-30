@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="titulo" translatable="false">Title (Required)</string>
+    <string name="texto">Text (Required)</string>
+    <string name="btnsave">Save</string>
+    <string name="btnedit">Edit</string>
+    <string name="all">Show All</string>
+    <string name="update">Update Note</string>
+    <string name="delete">Delete All</string>
+</resources>

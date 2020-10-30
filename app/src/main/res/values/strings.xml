@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">Nota</string>
+    <string name="titulo">Titulo (Required)</string>
+    <string name="texto">Texto (Required)</string>
+    <string name="btnsave">Guardar</string>
+    <string name="btnedit">Editar</string>
+    <string name="all">Mostrar tudo</string>
+    <string name="update">Atualizar Nota</string>
+    <string name="delete">Apagar tudo</string>
+</resources>
