@@ -26,7 +26,7 @@ public abstract class NoteDB : RoomDatabase(){
                      var name = Note(1,"Gabriel", "aluno","12")
                      noteDao.insert(name)
                      name= Note(2, "Edgar", "Professor","wq")
-                     noteDao.insert(name)*/
+                     noteDao.insert(name) */
                 }
             }
         }
