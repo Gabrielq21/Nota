@@ -23,7 +23,9 @@ class NoteAdapter internal constructor(
         val notesubItemView: TextView = itemView.findViewById(R.id.textview)
 
     }
-
+    interface OnItemClickListener {
+        fun onItemClicked( note: Note )
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val itemView = inflater.inflate(R.layout.recyclerview, parent, false)
         return NoteViewHolder(itemView)
@@ -34,6 +36,9 @@ class NoteAdapter internal constructor(
         holder.noteItemView.text = current.titulo
         holder.dateItemView.text = current.date
         holder.notesubItemView.text = current.texto
+    }
+    fun getNoteAt(position: Int): Note {
+        return notes[position]
     }
 
     internal fun setNotes(notes: List<Note>) {

@@ -8,12 +8,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nota.adapter.NoteAdapter
 import com.example.nota.entities.Note
 import com.example.nota.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 
 private lateinit var noteViewModel: NoteViewModel
 
@@ -41,6 +43,20 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, AddNote::class.java)
             startActivityForResult(intent, AddNoteRequestCode)
         }
+
+        val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT ) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                noteViewModel.deleteNote( adapter.getNoteAt(viewHolder.adapterPosition) )
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper( itemTouchHelperCallback )
+        itemTouchHelper.attachToRecyclerView( recyclerview )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

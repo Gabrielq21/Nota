@@ -18,6 +18,8 @@ class NoteRepository(private val noteDao: NoteDao){
     suspend fun updateNote(texto: String, titulo: String){
         noteDao.updateNote(texto,titulo)
     }
-
+    suspend fun deleteNote( note: Note ) {
+        noteDao.deleteNote( note )
+    }
 
 }
