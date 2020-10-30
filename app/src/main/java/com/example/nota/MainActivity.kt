@@ -42,20 +42,6 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, AddNoteRequestCode)
         }
     }
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-    override fun onStop() {
-        super.onStop()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -64,9 +50,12 @@ class MainActivity : AppCompatActivity() {
             data?.getStringExtra(AddNote.EXTRA_REPLY)?.let {
                 val titulo = it
                 data?.getStringExtra(AddNote.EXTRA1_REPLY)?.let {
-                    val note = Note(titulo = (titulo), texto = (it))
+                    val texto = it
+                    data?.getStringExtra(AddNote.EXTRA2_REPLY)?.let {
+                        val note = Note(titulo = (titulo), texto = (texto), date = (it))
 
-                    noteViewModel.insert(note)
+                        noteViewModel.insert(note)
+                    }
                 }
             }
         }
