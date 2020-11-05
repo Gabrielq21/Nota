@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 private lateinit var noteViewModel: NoteViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
 
     private val AddNoteRequestCode = 1
     private val UpdateActivityRequestCode = 2
@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = NoteAdapter(this)
+        val adapter = NoteAdapter(this,this)
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -57,38 +58,44 @@ class MainActivity : AppCompatActivity() {
 
         val itemTouchHelper = ItemTouchHelper( itemTouchHelperCallback )
         itemTouchHelper.attachToRecyclerView( recyclerview )
+
     }
+
+    override fun onItemClicked(note: Note ) {
+        val intent = Intent( this, UpdateNote::class.java)
+        intent.putExtra(UpdateNote.EXTRA_ID, note.id)
+        intent.putExtra(UpdateNote.EXTRA_REPLY, note.titulo)
+        intent.putExtra(UpdateNote.EXTRA_Date, note.date)
+        intent.putExtra(UpdateNote.EXTRA1_REPLY, note.texto)
+        startActivityForResult(intent, UpdateActivityRequestCode)
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == AddNoteRequestCode && resultCode == RESULT_OK) {
-            data?.getStringExtra(AddNote.EXTRA_REPLY)?.let {
-                val titulo = it
-                data?.getStringExtra(AddNote.EXTRA1_REPLY)?.let {
-                    val texto = it
-                    data?.getStringExtra(AddNote.EXTRA2_REPLY)?.let {
-                        val note = Note(titulo = (titulo), texto = (texto), date = (it))
+            val titulo = data?.getStringExtra(AddNote.EXTRA_REPLY).toString()
+            val texto =  data?.getStringExtra(AddNote.EXTRA1_REPLY).toString()
+            val date =   data?.getStringExtra(AddNote.EXTRA2_REPLY).toString()
+            val note = Note(titulo = (titulo), texto = (texto), date = (date))
+             noteViewModel.insert(note)
 
-                        noteViewModel.insert(note)
-                    }
-                }
-            }
+
         }
         else if(requestCode == AddNoteRequestCode) {
             Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
         }
         if (requestCode == UpdateActivityRequestCode && resultCode == RESULT_OK) {
-            data?.getStringExtra(UpdateNote.EXTRA_REPLY)?.let {
-                val titulo = it
-                data?.getStringExtra(UpdateNote.EXTRA1_REPLY)?.let {
-                    val texto= (it)
+            val id = data?.getIntExtra( UpdateNote.EXTRA_ID, -1 )
 
-                    noteViewModel.updateNote(texto,titulo)
-                }
-            }
+            val titulo = data?.getStringExtra( UpdateNote.EXTRA_REPLY ).toString()
+            val texto = data?.getStringExtra( UpdateNote.EXTRA1_REPLY ).toString()
+            val date = data?.getStringExtra( UpdateNote.EXTRA_Date ).toString()
+            val note = Note(id,titulo,texto,date)
+
+            noteViewModel.updateNote(note)
         }
-
         else if(requestCode == UpdateActivityRequestCode) {
             Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
         }
@@ -101,12 +108,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.updatenote ->
-            {
-                val intent = Intent(this@MainActivity, UpdateNote::class.java)
-                startActivityForResult(intent, UpdateActivityRequestCode)
-                true
-            }
 
             R.id.deleteall -> {
                 noteViewModel.deleteAll()

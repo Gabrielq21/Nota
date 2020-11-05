@@ -13,8 +13,8 @@ interface NoteDao{
     @Query("DELETE FROM note_table")
     suspend fun deleteAll()
 
-    @Query("UPDATE note_table SET texto = :texto WHERE titulo =:titulo")
-    suspend fun updateNote(texto: String, titulo: String)
+    @Update
+    suspend fun updateNote(note: Note)
 
     @Delete
     suspend fun deleteNote( note: Note )

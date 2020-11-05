@@ -11,7 +11,7 @@ import com.example.nota.entities.Note
 
 
 class NoteAdapter internal constructor(
-        context: Context
+        context: Context, val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -21,6 +21,16 @@ class NoteAdapter internal constructor(
         val noteItemView: TextView = itemView.findViewById(R.id.textView)
         val dateItemView: TextView = itemView.findViewById(R.id.date)
         val notesubItemView: TextView = itemView.findViewById(R.id.textview)
+
+        fun bind( note: Note, clickListener: OnItemClickListener ) {
+            noteItemView.text = note.titulo
+            dateItemView.text = note.date
+            notesubItemView.text = note.texto
+
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(note)
+            }
+        }
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -33,6 +43,8 @@ class NoteAdapter internal constructor(
         holder.noteItemView.text = current.titulo
         holder.dateItemView.text = current.date
         holder.notesubItemView.text = current.texto
+
+        holder.bind( current, itemClickListener )
     }
     fun getNoteAt(position: Int): Note {
         return notes[position]
@@ -42,6 +54,8 @@ class NoteAdapter internal constructor(
         this.notes = notes
         notifyDataSetChanged()
     }
-
+    interface OnItemClickListener {
+        fun onItemClicked( note: Note )
+    }
     override fun getItemCount() = notes.size
 }
