@@ -101,18 +101,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.all -> {
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = NoteAdapter(this)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(this)
-
-                noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-                noteViewModel.allNotes.observe(this, { notes ->
-                    notes?.let { adapter.setNotes(it) }
-                })
-                true
-            }
             R.id.updatenote ->
             {
                 val intent = Intent(this@MainActivity, UpdateNote::class.java)
