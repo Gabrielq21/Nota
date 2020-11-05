@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView( recyclerview )
     }
 
+
+
+
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -115,9 +120,4 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
-
-
-
 }
