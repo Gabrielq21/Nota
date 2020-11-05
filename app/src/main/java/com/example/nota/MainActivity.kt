@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
             val note = Note(titulo = (titulo), texto = (texto), date = (date))
              noteViewModel.insert(note)
 
+            Toast.makeText(applicationContext,"Nota Adicionada",Toast.LENGTH_LONG).show()
 
         }
         else if(requestCode == AddNoteRequestCode) {
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
             val note = Note(id,titulo,texto,date)
 
             noteViewModel.updateNote(note)
+            Toast.makeText(applicationContext,"Nota Editada",Toast.LENGTH_LONG).show()
         }
         else if(requestCode == UpdateActivityRequestCode) {
             Toast.makeText(applicationContext,"Campos Incompletos",Toast.LENGTH_LONG).show()
@@ -111,6 +113,7 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
 
             R.id.deleteall -> {
                 noteViewModel.deleteAll()
+                Toast.makeText(applicationContext,"Todas as notas Apagadas",Toast.LENGTH_LONG).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

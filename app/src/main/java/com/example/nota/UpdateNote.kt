@@ -26,7 +26,6 @@ class UpdateNote : AppCompatActivity() {
         editnumberView.setText( intent.getStringExtra(EXTRA1_REPLY) )
         val date= intent.getStringExtra(EXTRA_Date)
         val id = intent.getIntExtra( EXTRA_ID , -1)
-        Toast.makeText(this@UpdateNote, "$id", Toast.LENGTH_SHORT).show()
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
