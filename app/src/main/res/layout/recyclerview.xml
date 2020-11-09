@@ -6,7 +6,7 @@
     android:layout_margin="5dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -22,12 +22,12 @@
         android:text="date"
         android:textSize="12sp" />
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/texto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
-        android:layout_alignStart="@id/textView"
-        android:layout_alignLeft="@id/textView"
+        android:layout_below="@id/titulo"
+        android:layout_alignStart="@id/titulo"
+        android:layout_alignLeft="@id/titulo"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="@string/texto"

@@ -18,14 +18,14 @@ class NoteAdapter internal constructor(
     private var notes = emptyList<Note>() // Cached copy of words
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val noteItemView: TextView = itemView.findViewById(R.id.textView)
-        val dateItemView: TextView = itemView.findViewById(R.id.date)
-        val notesubItemView: TextView = itemView.findViewById(R.id.textview)
+        val tituloView: TextView = itemView.findViewById(R.id.titulo)
+        val dateView: TextView = itemView.findViewById(R.id.date)
+        val textoView: TextView = itemView.findViewById(R.id.texto)
 
         fun bind( note: Note, clickListener: OnItemClickListener ) {
-            noteItemView.text = note.titulo
-            dateItemView.text = note.date
-            notesubItemView.text = note.texto
+            tituloView.text = note.titulo
+            dateView.text = note.date
+            textoView.text = note.texto
 
             itemView.setOnClickListener {
                 clickListener.onItemClicked(note)
@@ -40,9 +40,9 @@ class NoteAdapter internal constructor(
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val current = notes[position]
-        holder.noteItemView.text = current.titulo
-        holder.dateItemView.text = current.date
-        holder.notesubItemView.text = current.texto
+        holder.tituloView.text = current.titulo
+        holder.dateView.text = current.date
+        holder.textoView.text = current.texto
 
         holder.bind( current, itemClickListener )
     }

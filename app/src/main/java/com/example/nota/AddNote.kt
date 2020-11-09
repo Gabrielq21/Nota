@@ -14,26 +14,28 @@ import java.util.*
 class AddNote : AppCompatActivity() {
     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = sdf.format(Date())
-    private lateinit var editWordView: EditText
-    private lateinit var editnumberView: EditText
+    private lateinit var edittituloView: EditText
+    private lateinit var edittextoView: EditText
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_note)
-        editWordView = findViewById(R.id.edit_word)
-        editnumberView = findViewById(R.id.edit_number)
+        setContentView(R.layout.activity_note)
+        edittituloView = findViewById(R.id.edit_titulo)
+        edittextoView = findViewById(R.id.edit_texto)
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(editWordView.text)) {
+            if (TextUtils.isEmpty(edittituloView.text)) {
+                setResult(Activity.RESULT_CANCELED, replyIntent)
+            } else if (TextUtils.isEmpty(edittextoView.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val word = editWordView.text.toString()
-                val numero = editnumberView.text.toString()
+                val titulo = edittituloView.text.toString()
+                val texto = edittextoView.text.toString()
                 val date = currentDate.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
-                replyIntent.putExtra(EXTRA1_REPLY, numero)
-                replyIntent.putExtra(EXTRA2_REPLY, date)
+                replyIntent.putExtra(EXTRA_TITULO, titulo)
+                replyIntent.putExtra(EXTRA_TEXTO, texto)
+                replyIntent.putExtra(EXTRA_DATE, date)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -41,8 +43,8 @@ class AddNote : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
-        const val EXTRA1_REPLY = "com.example.android.wordlistsql.REPLY1"
-        const val EXTRA2_REPLY = "com.example.android.wordlistsql.REPLY2"
+        const val EXTRA_TITULO = "com.example.android.wordlistsql.TITULO"
+        const val EXTRA_TEXTO = "com.example.android.wordlistsql.TEXTO"
+        const val EXTRA_DATE = "com.example.android.wordlistsql.DATE"
     }
 }

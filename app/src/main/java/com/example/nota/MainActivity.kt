@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = NoteAdapter(this,this)
-
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         noteViewModel.allNotes.observe(this, {notes ->
             notes?.let{adapter.setNotes(it)}
@@ -49,13 +47,10 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
             }
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 noteViewModel.deleteNote( adapter.getNoteAt(viewHolder.adapterPosition) )
             }
-
         }
-
         val itemTouchHelper = ItemTouchHelper( itemTouchHelperCallback )
         itemTouchHelper.attachToRecyclerView( recyclerview )
 
@@ -64,9 +59,9 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
     override fun onItemClicked(note: Note ) {
         val intent = Intent( this, UpdateNote::class.java)
         intent.putExtra(UpdateNote.EXTRA_ID, note.id)
-        intent.putExtra(UpdateNote.EXTRA_REPLY, note.titulo)
-        intent.putExtra(UpdateNote.EXTRA_Date, note.date)
-        intent.putExtra(UpdateNote.EXTRA1_REPLY, note.texto)
+        intent.putExtra(UpdateNote.EXTRA_TITULO, note.titulo)
+        intent.putExtra(UpdateNote.EXTRA_DATE, note.date)
+        intent.putExtra(UpdateNote.EXTRA_TEXTO, note.texto)
         startActivityForResult(intent, UpdateActivityRequestCode)
     }
 
@@ -75,9 +70,9 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == AddNoteRequestCode && resultCode == RESULT_OK) {
-            val titulo = data?.getStringExtra(AddNote.EXTRA_REPLY).toString()
-            val texto =  data?.getStringExtra(AddNote.EXTRA1_REPLY).toString()
-            val date =   data?.getStringExtra(AddNote.EXTRA2_REPLY).toString()
+            val titulo = data?.getStringExtra(AddNote.EXTRA_TITULO).toString()
+            val texto =  data?.getStringExtra(AddNote.EXTRA_TEXTO).toString()
+            val date =   data?.getStringExtra(AddNote.EXTRA_DATE).toString()
             val note = Note(titulo = (titulo), texto = (texto), date = (date))
              noteViewModel.insert(note)
 
@@ -90,9 +85,9 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
         if (requestCode == UpdateActivityRequestCode && resultCode == RESULT_OK) {
             val id = data?.getIntExtra( UpdateNote.EXTRA_ID, -1 )
 
-            val titulo = data?.getStringExtra( UpdateNote.EXTRA_REPLY ).toString()
-            val texto = data?.getStringExtra( UpdateNote.EXTRA1_REPLY ).toString()
-            val date = data?.getStringExtra( UpdateNote.EXTRA_Date ).toString()
+            val titulo = data?.getStringExtra( UpdateNote.EXTRA_TITULO ).toString()
+            val texto = data?.getStringExtra( UpdateNote.EXTRA_TEXTO ).toString()
+            val date = data?.getStringExtra( UpdateNote.EXTRA_DATE ).toString()
             val note = Note(id,titulo,texto,date)
 
             noteViewModel.updateNote(note)
@@ -119,7 +114,25 @@ class MainActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener{
             else -> super.onOptionsItemSelected(item)
         }
     }
+    override fun onPause() {
+        super.onPause()
+    }
 
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
 
 
